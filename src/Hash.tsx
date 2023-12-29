@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { Container, Board, Cell } from './Components/ComponentsStyled'
 import { FaTimes, FaCircle } from 'react-icons/fa';
 import { Colors } from './Components/ColorComponent';
-
+import ButtonRoot from './Components/ButtonComponent';
 
 const Hash: React.FC = () => {
   const [board, setBoard] = useState<Array<string | null>>(Array(9).fill(null));
   const [isXNext, setIsXNext] = useState(true);
 
   const winner = calculateWinner(board);
+  const draw = "It\'s a draw!"
+  const isBoardFull = board.every(cell => cell !==null);
 
   const handleClick = (index: number) => {
     if (board[index] || winner) {
@@ -33,12 +35,13 @@ const Hash: React.FC = () => {
     );
   };
 
-  const status = winner ? `Winner: ${winner}` : `Next player: ${isXNext ? 'X' : 'O'}`;
+  const status = winner ? `Winner: ${winner}` : isBoardFull ? `${draw}` : `Next player: ${isXNext ? 'X' : 'O'}`;
 
   return (
     <Container>
       <h2>{status}</h2>
       <Board>{Array.from({ length: 9 }, (_, index) => renderCell(index))}</Board>
+      <ButtonRoot Text={'Recomeçar'}></ButtonRoot>
     </Container>
   );
 };
@@ -60,7 +63,6 @@ const calculateWinner = (squares: Array<string | null>): string | null => {
       return squares[a];
     }
   }
-
   return null;
 };
 

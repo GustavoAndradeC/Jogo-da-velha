@@ -8,7 +8,6 @@ export const GlobalStyle = createGlobalStyle`
 
     font-family: "Poppins";
     text-transform: uppercase;
-    
   }
 `;
 
